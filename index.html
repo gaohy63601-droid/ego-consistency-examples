@@ -1,30 +1,31 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Egocentric Interaction-Consistency &mdash; Video Examples</title>
+<title>Egocentric Interaction-Consistency &mdash; Success / Failure Examples</title>
 <style>
- body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-   max-width:820px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.55}
- h1{font-size:1.45rem} h3{margin:.2rem 0;font-size:1.05rem}
- .tag{font-weight:500;color:#b23;background:#fff0f0;padding:1px 7px;border-radius:6px;
-   font-size:.75rem;margin-left:.4rem}
+ body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:820px;
+   margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
+ h1{font-size:1.4rem} h2{font-size:1.1rem;margin-top:1.6rem}
  p.lead{color:#444}
- .card{border:1px solid #e3e3e3;border-radius:12px;padding:1rem;margin:1.3rem 0;
+ .card{border:1px solid #e3e3e3;border-radius:12px;padding:1rem;margin:1rem 0;
    box-shadow:0 1px 3px rgba(0,0,0,.05)}
- .card img{width:100%;border-radius:8px;margin:.5rem 0;background:#fafafa}
- .cap{color:#444;font-size:.92rem;margin:.3rem 0 0}
- .legend{background:#f7f9ff;border:1px solid #e0e8ff;border-radius:8px;padding:.6rem .9rem;
-   font-size:.88rem}
- b.blue{color:#1f6fd6} b.orange{color:#e8830c} b.green{color:#0a9d3a}
+ .card img{width:100%;border-radius:8px;background:#fafafa}
+ table{border-collapse:collapse;width:100%;font-size:.9rem;margin-top:.5rem}
+ td{padding:.22rem .5rem;border-bottom:1px solid #f2f2f2}
+ td:first-child{color:#666;width:9rem}
+ .ok{color:#0a7d28;font-weight:700} .no{color:#c62828;font-weight:700}
+ .legend{background:#f7f9ff;border:1px solid #e0e8ff;border-radius:8px;padding:.5rem .9rem;font-size:.85rem}
 </style></head><body>
-<h1>Egocentric Interaction-Consistency &mdash; Video Examples</h1>
-<p class="lead">HOT3D provides interaction trajectories (no RGB in this subset), so each
-clip is visualized in the egocentric image plane. Left = the <b>real</b> clip,
-right = a <b>corrupted</b> variant. Watch how the corruption breaks the interaction.</p>
-<p class="legend"><b class="orange">&#9632; object</b> &nbsp;
-<b class="blue">&#9679; hands</b> &nbsp;
-<b class="green">&#10005; gaze</b> (ray from the head centre). A plausible clip has the
-gaze tracking the hand/object being manipulated.</p>
-<div class="card"><h3>dino_toy <span class="tag">corruption: gaze_shift</span></h3><img src="ex0_dino_toy.gif" alt="dino_toy gaze_shift"><p class="cap">The green gaze marker/ray is temporally shifted, so it no longer tracks the hand and object at the right moment. Hand and object motion are unchanged, which is why a hand-object-only model cannot notice this.</p></div><div class="card"><h3>mug_white <span class="tag">corruption: cross-clip: gaze replaced</span></h3><img src="ex1_mug_white.gif" alt="mug_white cross-clip: gaze replaced"><p class="cap">The gaze trajectory is replaced by a real (smooth) gaze trace from a different clip, so it points at unrelated locations. Only a model that compares gaze against hand/object can flag this.</p></div><div class="card"><h3>dumbbell_5lb <span class="tag">corruption: hand-object shift</span></h3><img src="ex2_dumbbell_5lb.gif" alt="dumbbell_5lb hand-object shift"><p class="cap">The hand is time-shifted relative to the object, breaking hand-object synchrony. This is visible in hand/object motion, so all models catch it.</p></div><div class="card"><h3>vase <span class="tag">corruption: time-warp</span></h3><img src="ex3_vase.gif" alt="vase time-warp"><p class="cap">The whole clip is non-linearly re-timed (unnatural speed profile) while all modalities stay in sync; it looks like plausible variable-speed motion, so hand-object-only stays near chance.</p></div>
-<p style="color:#888;font-size:.8rem">Model: hand-object + gaze + head/camera. Full
-numeric success/failure scores are in the accompanying report (Results tables).</p>
+<h1>Egocentric Interaction-Consistency &mdash; Success / Failure Examples</h1>
+<p class="lead">Model: <b>hand-object + gaze + head/camera</b>, subject split (held-out
+participant P0009). Each example shows the <b>real</b> clip vs a <b>corrupted</b>
+variant, the model's plausibility <b>scores</b>, and the <b>verdict</b>: a SUCCESS means
+the model scores real above the corruption; a FAILURE means it does not.</p>
+<p class="legend"><b style="color:#e8830c">&#9632; object</b> &nbsp;
+<b style="color:#1f6fd6">&#9679; hands</b> &nbsp;
+<b style="color:#0a9d3a">&#10005; gaze</b> (ray from head).</p>
+<h2>Success examples (model ranks correctly)</h2>
+<div class="card"><img src="s0_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>gaze temporal shift (mild)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+48.76</td></tr><tr><td>score(corrupted)</td><td>-6.13</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div><div class="card"><img src="s1_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>cross-clip replacement (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+11.04</td></tr><tr><td>score(corrupted)</td><td>-47.85</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div><div class="card"><img src="s2_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>motion time-warp (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+48.76</td></tr><tr><td>score(corrupted)</td><td>+32.36</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div>
+<h2>Failure examples (model mis-ranks)</h2>
+<div class="card"><img src="f0_mug_white.gif"><table><tr><td>object</td><td>mug_white</td></tr><tr><td>corruption</td><td>gaze temporal shift (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>-34.60</td></tr><tr><td>score(corrupted)</td><td>-23.24</td></tr><tr><td>verdict</td><td><span class="no">FAILURE &#10007;</span> (corrupted &ge; real)</td></tr></table></div><div class="card"><img src="f1_mug_white.gif"><table><tr><td>object</td><td>mug_white</td></tr><tr><td>corruption</td><td>motion time-warp (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>-8.39</td></tr><tr><td>score(corrupted)</td><td>-5.42</td></tr><tr><td>verdict</td><td><span class="no">FAILURE &#10007;</span> (corrupted &ge; real)</td></tr></table></div><div class="card"><img src="f2_mug_white.gif"><table><tr><td>object</td><td>mug_white</td></tr><tr><td>corruption</td><td>cross-clip replacement (mild)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+7.03</td></tr><tr><td>score(corrupted)</td><td>+31.21</td></tr><tr><td>verdict</td><td><span class="no">FAILURE &#10007;</span> (corrupted &ge; real)</td></tr></table></div>
+<h2>Severity failure (mild vs strong mis-ordered)</h2><div class="card"><table><tr><td>object</td><td>dino_toy</td></tr><tr><td>corruption</td><td>gaze temporal shift (severity)</td></tr><tr><td>score(real)</td><td>-3.69</td></tr><tr><td>score(mild)</td><td>-12.13</td></tr><tr><td>score(strong)</td><td>+1.70</td></tr><tr><td>verdict</td><td><span class="no">SEVERITY FAILURE &#10007;</span> (strong scored &ge; mild, so it did not rank real &gt; mild &gt; strong)</td></tr></table></div>
 </body></html>
