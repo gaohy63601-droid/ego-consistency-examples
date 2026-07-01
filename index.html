@@ -2,29 +2,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Egocentric Interaction-Consistency &mdash; Success / Failure Examples</title>
 <style>
- body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:820px;
-   margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
- h1{font-size:1.4rem} h2{font-size:1.1rem;margin-top:1.6rem}
- p.lead{color:#444}
- .card{border:1px solid #e3e3e3;border-radius:12px;padding:1rem;margin:1rem 0;
-   box-shadow:0 1px 3px rgba(0,0,0,.05)}
+ body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
+ h1{font-size:1.4rem} h2{font-size:1.1rem;margin-top:1.6rem} p.lead{color:#444}
+ .card{border:1px solid #e3e3e3;border-radius:12px;padding:1rem;margin:1rem 0;box-shadow:0 1px 3px rgba(0,0,0,.05)}
  .card img{width:100%;border-radius:8px;background:#fafafa}
  table{border-collapse:collapse;width:100%;font-size:.9rem;margin-top:.5rem}
- td{padding:.22rem .5rem;border-bottom:1px solid #f2f2f2}
- td:first-child{color:#666;width:9rem}
+ td{padding:.22rem .5rem;border-bottom:1px solid #f2f2f2} td:first-child{color:#666;width:9rem}
  .ok{color:#0a7d28;font-weight:700} .no{color:#c62828;font-weight:700}
  .legend{background:#f7f9ff;border:1px solid #e0e8ff;border-radius:8px;padding:.5rem .9rem;font-size:.85rem}
 </style></head><body>
 <h1>Egocentric Interaction-Consistency &mdash; Success / Failure Examples</h1>
 <p class="lead">Model: <b>hand-object + gaze + head/camera</b>, subject split (held-out
-participant P0009). Each example shows the <b>real</b> clip vs a <b>corrupted</b>
-variant, the model's plausibility <b>scores</b>, and the <b>verdict</b>: a SUCCESS means
-the model scores real above the corruption; a FAILURE means it does not.</p>
+participant P0009). Left = <b>real</b>, right = <b>corrupted</b>. In the corrupted panel
+the <b style="color:#e00000">corrupted modality is drawn in RED</b>, with a faint marker
+showing where its real trajectory would be &mdash; the gap between them is the injected
+inconsistency. Each card lists the model's plausibility <b>scores</b> and the
+<b>verdict</b> (SUCCESS = real scored above the corruption).</p>
 <p class="legend"><b style="color:#e8830c">&#9632; object</b> &nbsp;
 <b style="color:#1f6fd6">&#9679; hands</b> &nbsp;
-<b style="color:#0a9d3a">&#10005; gaze</b> (ray from head).</p>
+<b style="color:#0a9d3a">&#10005; gaze</b> &nbsp;|&nbsp;
+<b style="color:#e00000">red = corrupted modality</b>, faint = its real position.</p>
 <h2>Success examples (model ranks correctly)</h2>
-<div class="card"><img src="s0_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>gaze temporal shift (mild)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+48.76</td></tr><tr><td>score(corrupted)</td><td>-6.13</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div><div class="card"><img src="s1_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>cross-clip replacement (object replaced)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+11.04</td></tr><tr><td>score(corrupted)</td><td>-47.85</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div><div class="card"><img src="s2_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>motion time-warp (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+48.76</td></tr><tr><td>score(corrupted)</td><td>+32.36</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div>
+<div class="card"><img src="s0_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>gaze temporal shift (mild)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+48.76</td></tr><tr><td>score(corrupted)</td><td>-6.13</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div><div class="card"><img src="s1_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>cross-clip replacement (gaze replaced)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+11.04</td></tr><tr><td>score(corrupted)</td><td>-40.68</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div><div class="card"><img src="s2_puzzle_toy.gif"><table><tr><td>object</td><td>puzzle_toy</td></tr><tr><td>corruption</td><td>motion time-warp (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+48.76</td></tr><tr><td>score(corrupted)</td><td>+32.36</td></tr><tr><td>verdict</td><td><span class="ok">SUCCESS &#10003;</span> (real &gt; corrupted)</td></tr></table></div>
 <h2>Failure examples (model mis-ranks)</h2>
 <div class="card"><img src="f0_mug_white.gif"><table><tr><td>object</td><td>mug_white</td></tr><tr><td>corruption</td><td>gaze temporal shift (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>-34.60</td></tr><tr><td>score(corrupted)</td><td>-23.24</td></tr><tr><td>verdict</td><td><span class="no">FAILURE &#10007;</span> (corrupted &ge; real)</td></tr></table></div><div class="card"><img src="f1_mug_white.gif"><table><tr><td>object</td><td>mug_white</td></tr><tr><td>corruption</td><td>motion time-warp (strong)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>-8.39</td></tr><tr><td>score(corrupted)</td><td>-5.42</td></tr><tr><td>verdict</td><td><span class="no">FAILURE &#10007;</span> (corrupted &ge; real)</td></tr></table></div><div class="card"><img src="f2_mug_white.gif"><table><tr><td>object</td><td>mug_white</td></tr><tr><td>corruption</td><td>cross-clip replacement (gaze replaced)</td></tr><tr><td>model</td><td>hand-object + gaze + head</td></tr><tr><td>score(real)</td><td>+7.03</td></tr><tr><td>score(corrupted)</td><td>+31.21</td></tr><tr><td>verdict</td><td><span class="no">FAILURE &#10007;</span> (corrupted &ge; real)</td></tr></table></div>
 <h2>Severity failure (mild vs strong mis-ordered)</h2><div class="card"><img src="sev_animation.gif"><table><tr><td>object</td><td>dino_toy</td></tr><tr><td>corruption</td><td>gaze temporal shift (severity)</td></tr><tr><td>score(real)</td><td>-3.69</td></tr><tr><td>score(mild)</td><td>-12.13</td></tr><tr><td>score(strong)</td><td>+1.70</td></tr><tr><td>verdict</td><td><span class="no">SEVERITY FAILURE &#10007;</span> (strong scored &ge; mild, so it did not rank real &gt; mild &gt; strong)</td></tr></table></div>
