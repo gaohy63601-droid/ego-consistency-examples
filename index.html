@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egocentric Interaction-Consistency &mdash; Video Examples</title>
+<style>
+ body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+   max-width:820px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.55}
+ h1{font-size:1.45rem} h3{margin:.2rem 0;font-size:1.05rem}
+ .tag{font-weight:500;color:#b23;background:#fff0f0;padding:1px 7px;border-radius:6px;
+   font-size:.75rem;margin-left:.4rem}
+ p.lead{color:#444}
+ .card{border:1px solid #e3e3e3;border-radius:12px;padding:1rem;margin:1.3rem 0;
+   box-shadow:0 1px 3px rgba(0,0,0,.05)}
+ .card img{width:100%;border-radius:8px;margin:.5rem 0;background:#fafafa}
+ .cap{color:#444;font-size:.92rem;margin:.3rem 0 0}
+ .legend{background:#f7f9ff;border:1px solid #e0e8ff;border-radius:8px;padding:.6rem .9rem;
+   font-size:.88rem}
+ b.blue{color:#1f6fd6} b.orange{color:#e8830c} b.green{color:#0a9d3a}
+</style></head><body>
+<h1>Egocentric Interaction-Consistency &mdash; Video Examples</h1>
+<p class="lead">HOT3D provides interaction trajectories (no RGB in this subset), so each
+clip is visualized in the egocentric image plane. Left = the <b>real</b> clip,
+right = a <b>corrupted</b> variant. Watch how the corruption breaks the interaction.</p>
+<p class="legend"><b class="orange">&#9632; object</b> &nbsp;
+<b class="blue">&#9679; hands</b> &nbsp;
+<b class="green">&#10005; gaze</b> (ray from the head centre). A plausible clip has the
+gaze tracking the hand/object being manipulated.</p>
+<div class="card"><h3>dino_toy <span class="tag">corruption: gaze_shift</span></h3><img src="ex0_dino_toy.gif" alt="dino_toy gaze_shift"><p class="cap">The green gaze marker/ray is temporally shifted, so it no longer tracks the hand and object at the right moment. Hand and object motion are unchanged, which is why a hand-object-only model cannot notice this.</p></div><div class="card"><h3>mug_white <span class="tag">corruption: cross-clip: gaze replaced</span></h3><img src="ex1_mug_white.gif" alt="mug_white cross-clip: gaze replaced"><p class="cap">The gaze trajectory is replaced by a real (smooth) gaze trace from a different clip, so it points at unrelated locations. Only a model that compares gaze against hand/object can flag this.</p></div><div class="card"><h3>dumbbell_5lb <span class="tag">corruption: hand-object shift</span></h3><img src="ex2_dumbbell_5lb.gif" alt="dumbbell_5lb hand-object shift"><p class="cap">The hand is time-shifted relative to the object, breaking hand-object synchrony. This is visible in hand/object motion, so all models catch it.</p></div><div class="card"><h3>vase <span class="tag">corruption: time-warp</span></h3><img src="ex3_vase.gif" alt="vase time-warp"><p class="cap">The whole clip is non-linearly re-timed (unnatural speed profile) while all modalities stay in sync; it looks like plausible variable-speed motion, so hand-object-only stays near chance.</p></div>
+<p style="color:#888;font-size:.8rem">Model: hand-object + gaze + head/camera. Full
+numeric success/failure scores are in the accompanying report (Results tables).</p>
+</body></html>
